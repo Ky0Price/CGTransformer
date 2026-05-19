@@ -1,0 +1,58 @@
+# Dataset name used in logs and cache filenames.
+dataset: mp20
+# Experiment name under the generation root.
+test_type: demo_generation
+# Expected number of generated structures.
+num_gen: 100
+# Rebuild processed prediction trajectories even if cache exists.
+force_reprocess_pred: false
+# Rebuild processed reference trajectories even if cache exists.
+force_reprocess_true: false
+
+paths:
+  # Root directory containing generation outputs.
+  gen_root: ../outputs
+  # Training trajectory used by GenEval.
+  train_traj: ../data/raw/mp20/train.traj
+  # Test trajectory used by GenEval.
+  test_traj: ../data/raw/mp20/test.traj
+  # Directory for caching processed reference trajectories.
+  true_cache_dir: ../outputs/benchmark_cache
+  # Directory for JSONL benchmark logs.
+  log_dir: ../outputs/benchmark_logs
+
+Eval:
+  # Number of valid generated structures sampled for metrics. Null means auto.
+  n_samples:
+  # Optional number of reference targets. Keep null unless needed.
+  n_targets:
+  # Force fingerprint computation even if only validity is requested.
+  get_fp: true
+  # Report composition/structure validity.
+  calc_validity: true
+  # Kept for compatibility; this script does not use GenEval match RMS directly.
+  calc_match_rms: false
+  match_para:
+    # StructureMatcher site tolerance.
+    stol: 0.5
+    # StructureMatcher angle tolerance.
+    angle_tol: 10
+    # StructureMatcher lattice tolerance.
+    ltol: 0.3
+  # Compute coverage metrics.
+  calc_coverage: true
+  cov_cutoffs:
+    # Structure cutoff used in coverage.
+    struc: 0.4
+    # Composition cutoff used in coverage.
+    comp: 10
+  # Compute composition diversity.
+  calc_comp_div: true
+  # Compute structure diversity.
+  calc_struct_div: true
+  # Compute Wasserstein distance on density.
+  calc_wdist_density: true
+  # Compute Wasserstein distance on number of elements.
+  calc_wdist_num_elems: true
+  # Compute novelty and uniqueness.
+  calc_novelty_unique: false

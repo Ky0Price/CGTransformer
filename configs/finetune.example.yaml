@@ -1,0 +1,61 @@
+# Path to the serialized training dataset JSON.
+train_json: ../dataset/train_mp_esg.json
+# Path to the serialized validation dataset JSON.
+val_json: ../dataset/val_mp_esg.json
+# Path to the base GPT checkpoint directory.
+model_dir: ../checkpoints/basegpt
+# Path to the full-model checkpoint used as the starting point for finetuning.
+# For full finetuning, this is typically the checkpoint you continue training from.
+# For LoRA finetuning, this is still the base full-model checkpoint that receives the adapter.
+baseckpt: ../checkpoints/mp-20/cktp-best.pt
+# Optional path to an existing LoRA adapter directory.
+# Leave this empty for a fresh LoRA run.
+# Set this when you want to resume LoRA training or when exporting a merged standalone model.
+peftckpt:
+# Directory for saving finetuning outputs.
+save_dir: ../checkpoints/finetune-example
+
+# Total number of epochs for a normal run.
+epochs: 50
+# Per-device batch size for a normal run.
+batch_size: 16
+# Gradient accumulation steps for a normal run.
+acc_steps: 2
+# Random seed.
+seed: 42 # used in original paper
+# Base learning rate before effective-batch scaling.
+lr: 0.0005
+# Training stage. Use finetune for property-conditioned finetuning.
+stage: finetune
+# Property names to reveal during finetuning.
+finetune_target:
+  - dft_band_gap
+# Enable LoRA finetuning instead of full finetuning.
+# true  -> train adapter weights on top of baseckpt
+# false -> update the full model weights directly
+use_lora: true
+# LoRA rank.
+lora_r: 16
+# LoRA alpha.
+lora_alpha: 32
+# LoRA dropout.
+lora_dropout: 0.05
+# GPT-2 module names to receive LoRA layers.
+lora_targets:
+  - c_attn
+  - c_proj
+  - c_fc
+# Run validation every N epochs during a normal run.
+valid_interval: 10
+# Optional output directory for exporting a merged standalone model.
+# When this is set, the script loads baseckpt + peftckpt, merges the LoRA adapter into the base model,
+# writes a complete Hugging Face model directory here, and exits without running training.
+export_merged_dir:
+
+# Enable a local smoke test before uploading.
+# When true, the script forces epochs=2, batch_size=1, acc_steps=1, valid_interval=1.
+quick_test: false
+# Maximum number of training entries used in quick-test mode.
+quick_test_max_train: 20
+# Maximum number of validation entries used in quick-test mode.
+quick_test_max_val: 20

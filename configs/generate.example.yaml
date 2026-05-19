@@ -1,0 +1,58 @@
+# Path to the base GPT checkpoint directory used to build the generation model.
+# This should point to the Hugging Face-style base model directory.
+pretrained_model_path: ../checkpoints/basegpt
+# Root directory that contains experiment checkpoints.
+# The script combines this with test_type / baseckpt / peftckpt when resolving relative names.
+model_path: ../checkpoints
+# Default root directory for generated outputs.
+test_path: ../outputs
+# Experiment name under model_path.
+test_type: Alex-mp20-esg
+# Prefix used in output filenames and progress display.
+prefix: demo_generation
+# Random seed for generation.
+seed: 2026 # used in original paper
+# Base checkpoint filename or relative path.
+# This can be either a full path or a name resolved under model_path/test_type.
+baseckpt: ckpt-50.pt
+# Optional PEFT adapter directory name or relative path.
+# Leave this empty to run generation from the base full-model checkpoint only.
+peftckpt: peft-ckpt-50
+# Optional structure export format: cif, xyz, or vasp.
+outputformat: cif
+# Final output directory for this run.
+output_path: ../outputs/demo_generation
+
+# Generation parameters.
+gen_para:
+  # Generation batch size.
+  bs: 16
+  # Property constraints used to build the prompt.
+  prop_dict:
+    # Example: discretized band gap condition.
+    dft_band_gap: 3
+  # Optional list of allowed chemical species.
+  # Example: ["Si", "O"]
+  chemical_species:
+  # Optional stoichiometric formula aligned with chemical_species.
+  # Example: [1, 2] means Si:O = 1:2 before multiplier sampling.
+  formula:
+  # Number of structures to generate.
+  num_gen: 100
+  # Minimum total atom count when the composition is sampled.
+  # Required when chemical_species is provided without a fixed formula.
+  min_atom:
+  # Maximum total atom count when the composition is sampled.
+  # Required when chemical_species is provided without a fixed formula.
+  max_atom:
+  # Enable stochastic sampling.
+  do_sample: true
+  # Top-k sampling parameter.
+  top_k: 10
+  # Sampling temperature.
+  temperature: 0.8
+  # Legacy field kept for compatibility in older configs.
+  pad_token_id: 2
+
+# Runtime device, typically cuda or cpu.
+device: cuda

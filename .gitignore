@@ -1,0 +1,30 @@
+# Temporary local source snapshots
+src_tmp/
+scr_tmp_bak/
+
+# Large artifacts deferred from the initial public push
+dataset/
+checkpoints/
+env/
+outputs/
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+.env/
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+torch251.yaml

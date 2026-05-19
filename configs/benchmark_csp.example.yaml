@@ -1,0 +1,35 @@
+# Root directory containing gen/ and target/ subfolders for paired CSP evaluation.
+main_path: ../outputs/csp_example
+# Training trajectory used by GenEval.
+traj_train: ../data/raw/mp20/train.traj
+# Test trajectory used by GenEval.
+traj_test: ../data/raw/mp20/test.traj
+# Number of generated candidates per target structure.
+batchsize: 50
+# Number of valid generated structures sampled internally by GenEval. Null means auto.
+n_samples:
+match_para:
+  # StructureMatcher site tolerance.
+  stol: 0.5
+  # StructureMatcher angle tolerance.
+  angle_tol: 10
+  # StructureMatcher lattice tolerance.
+  ltol: 0.3
+  # Maximum number of matching attempts.
+  n_attempt: 20
+# Report final validity metrics.
+calc_validity: false
+# Compute match rate and RMS distance.
+calc_match_rms: true
+# Compute coverage metrics.
+calc_coverage: false
+# Compute composition diversity.
+calc_comp_div: false
+# Compute structure diversity.
+calc_struct_div: false
+# Compute Wasserstein distance on density.
+calc_wdist_density: false
+# Compute Wasserstein distance on number of elements.
+calc_wdist_num_elems: false
+# Compute novelty and uniqueness.
+calc_novelty_unique: false

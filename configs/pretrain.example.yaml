@@ -1,0 +1,35 @@
+# Path to the serialized training dataset JSON.
+train_json: ../dataset/train_mp_esg.json
+# Path to the serialized validation dataset JSON.
+val_json: ../dataset/val_mp_esg.json
+# Path to the base GPT checkpoint directory.
+# This should point to the tokenizer/config/model directory used to initialize GPT-2 weights.
+model_dir: ../checkpoints/basegpt
+# Directory for saving pretraining checkpoints.
+save_dir: ../checkpoints/pretrain-example
+
+# Total number of epochs for a normal run.
+epochs: 100
+# Per-device batch size for a normal run.
+batch_size: 16
+# Gradient accumulation steps for a normal run.
+acc_steps: 2
+# Random seed.
+seed: 42 # used in original paper
+# Base learning rate before effective-batch scaling.
+lr: 0.0005
+# Training stage.
+# Use pretrain for standard language-model pretraining on serialized crystal text.
+# The script also accepts finetune for compatibility with the shared dataset logic.
+stage: pretrain
+# Optional property names, only needed when stage=finetune.
+# Leave this empty for normal pretraining.
+finetune_target:
+
+# Enable a local smoke test before uploading.
+# When true, the script forces epochs=2, batch_size=1, acc_steps=1.
+quick_test: false
+# Maximum number of training entries used in quick-test mode.
+quick_test_max_train: 20
+# Maximum number of validation entries used in quick-test mode.
+quick_test_max_val: 20

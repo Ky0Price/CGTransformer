@@ -1,0 +1,12 @@
+# Directory containing the source trajectory file.
+traj_dir: ../data/raw/mp20
+# Stem of the trajectory filename, e.g. train_mp for train_mp.traj.
+target: train_mp
+# Dataset tag used in the output filename.
+data_name: mp
+# Ordering method. Common choices: "5"=esg, "8"=esp.
+method: "5"
+# Optional explicit output JSON path.
+out_json:
+# Optional explicit failure log path.
+fail_log:
